@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Shop application</string>
+    <string name="category">%1s</string>
+    <string name="quantity">Quantity: %s</string>
+    <string name="price">Price: $%s</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="unit_price">$%1s</string>
+    <string name="total_price">Total: $%s</string>
+    <string name="cart_subtotal">$%s</string>
+    <string name="store_tag">Store</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="purchase">Purchase</string>
+    <string name="clear">Clear</string>
+    <string name="description">%1s</string>
+    <string name="empty">Empty</string>
+    <string name="item_quantity">%s x %s</string>
+    <string name="archive">Archive</string>
+    <string name="purchase_date">Purchase date:\n%s</string>
+</resources>
