@@ -7,7 +7,7 @@
 	$server->connectToDatabase();
 
 	// Return all the items from user's cart to the application.
-    $sql_query = "SELECT store.item_id, store.item_name, store.category, store.description, shopping_cart.quantity, store.unit_price FROM store JOIN shopping_cart ON store.item_id = shopping_cart.item_id WHERE shopping_cart.user_id = 1";
+    $sql_query = "SELECT store.item_id, store.item_name, store.category, store.description, shopping_cart.quantity, store.unit_price, store.image FROM store JOIN shopping_cart ON store.item_id = shopping_cart.item_id WHERE shopping_cart.user_id = 1";
     $result = mysqli_query($server->getConnection(), $sql_query);
 	$result_array = array();
 	$row_array = array();

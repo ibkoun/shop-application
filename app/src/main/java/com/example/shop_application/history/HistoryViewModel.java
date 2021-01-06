@@ -64,6 +64,7 @@ public class HistoryViewModel extends AndroidViewModel implements DatabaseOperat
                             jsonItem.getString("description"),
                             jsonItem.getString("quantity"),
                             jsonItem.getString("unit_price"));
+                    item.setImgSrc(jsonItem.getString("image"));
                     items.add(item);
                 }
                 order = new OrderModel(obj.getString("purchase_date"),
@@ -100,6 +101,7 @@ public class HistoryViewModel extends AndroidViewModel implements DatabaseOperat
                                 jsonItem.getString("description"),
                                 jsonItem.getString("quantity"),
                                 jsonItem.getString("unit_price"));
+                        item.setImgSrc(jsonItem.getString("image"));
                         items.add(item);
                     }
                     order = new OrderModel(obj.getString("purchase_date"),

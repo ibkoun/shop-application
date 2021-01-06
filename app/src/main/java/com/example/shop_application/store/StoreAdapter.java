@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shop_application.async.ImageLoader;
+import com.example.shop_application.async.TaskRunner;
 import com.example.shop_application.item.ItemModel;
 import com.example.shop_application.R;
 
@@ -32,6 +35,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> {
     private final List<ItemModel> items = new ArrayList<>();
     private final StoreAdapterCallback storeAdapterCallback;
+    private final TaskRunner taskRunner = new TaskRunner();
 
     public interface StoreAdapterCallback {
         void onAddToCart(ItemModel item);
@@ -43,6 +47,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, category, description, quantity, unitPrice;
+        ImageView image;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +56,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
             description = itemView.findViewById(R.id.store_item_desc);
             quantity = itemView.findViewById(R.id.store_item_quantity);
             unitPrice = itemView.findViewById(R.id.store_item_price);
+            image = itemView.findViewById(R.id.store_item_image);
         }
     }
 
@@ -80,6 +86,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
         holder.description.setText(String.format(resources.getString(R.string.description), description));
         holder.quantity.setText(String.format(resources.getString(R.string.quantity), quantity));
         holder.unitPrice.setText(String.format(resources.getString(R.string.unit_price), unitPrice));
+        taskRunner.executeAsync(new ImageLoader(item.getImgSrc()), (bitmap) -> holder.image.setImageBitmap(bitmap));
 
         // Open a dialog window when an item has been clicked.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +125,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
                                     item.getDescription(),
                                     String.valueOf(amount.getValue()),
                                     item.getPrice());
+                            cartItem.setImgSrc(item.getImgSrc());
                             storeAdapterCallback.onAddToCart(cartItem);
                             Toast.makeText(holder.itemView.getContext(), "Item added to your cart.", Toast.LENGTH_SHORT).show();
                         }

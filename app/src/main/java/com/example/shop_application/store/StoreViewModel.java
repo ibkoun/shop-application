@@ -56,6 +56,7 @@ public class StoreViewModel extends AndroidViewModel implements DatabaseOperatio
                         obj.getString("description"),
                         obj.getString("quantity"),
                         obj.getString("unit_price"));
+                item.setImgSrc(obj.getString("image"));
                 store.put(id, item);
             }
             items.setValue(store);

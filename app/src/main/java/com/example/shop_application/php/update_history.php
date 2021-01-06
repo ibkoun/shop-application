@@ -36,14 +36,14 @@
 	}
 	
 	// Return the last inserted order (including the purchased items) to the application.
-	$sql_query = "SELECT * FROM orders WHERE order_id = '$order_id')";
+	$sql_query = "SELECT * FROM orders WHERE order_id = '$order_id'";
 	$result = mysqli_query($server->getConnection(), $sql_query);
 	$result_array = array();
 	while ($order_row = mysqli_fetch_array($result)) {
 		$order = $order_row;
 		$order_id = $order['order_id'];
 		$order['order_items'] = array();
-		$sql_query = "SELECT items.* FROM (SELECT order_items.order_id, store.item_id, store.item_name, store.category, order_items.quantity, store.description, order_items.unit_price FROM order_items JOIN store ON order_items.item_id = store.item_id WHERE order_items.order_id = '$order_id') items";
+		$sql_query = "SELECT items.* FROM (SELECT order_items.order_id, store.item_id, store.item_name, store.category, order_items.quantity, store.description, order_items.unit_price, store.image FROM order_items JOIN store ON order_items.item_id = store.item_id WHERE order_items.order_id = '$order_id') items";
 		$result = mysqli_query($server->getConnection(), $sql_query);
 		while ($order_item_row = mysqli_fetch_array($result)) {
 			$order_item = $order_item_row;

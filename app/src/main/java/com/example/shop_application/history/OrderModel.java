@@ -17,7 +17,7 @@ public class OrderModel {
         this.items = items;
         double value = 0;
         for (ItemModel item : this.items) {
-            value += Double.parseDouble(item.getPrice());
+            value += Double.parseDouble(item.getQuantity()) * Double.parseDouble(item.getPrice());
         }
         totalPrice = String.format(Locale.CANADA, "%.2f", value);
     }

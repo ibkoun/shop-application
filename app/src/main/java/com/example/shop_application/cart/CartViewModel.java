@@ -55,6 +55,7 @@ public class CartViewModel extends AndroidViewModel implements DatabaseOperation
                         obj.getString("description"),
                         obj.getString("quantity"),
                         obj.getString("unit_price"));
+                item.setImgSrc(obj.getString("image"));
                 cart.put(id, item);
             }
             items.setValue(cart);
@@ -92,6 +93,7 @@ public class CartViewModel extends AndroidViewModel implements DatabaseOperation
                                 obj.getString("description"),
                                 obj.getString("quantity"),
                                 obj.getString("unit_price"));
+                        item.setImgSrc(obj.getString("image"));
                         cart.put(id, item);
                     }
                 }

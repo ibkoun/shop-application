@@ -66,14 +66,15 @@
 	
 	// Create a table named 'store'.
 	$table = "store";
-	$sql_query = "CREATE TABLE IF NOT EXISTS $table (item_id INT AUTO_INCREMENT, item_name VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, quantity INT NOT NULL, description VARCHAR(255), unit_price DECIMAL(6, 2) NOT NULL, PRIMARY KEY(item_id), UNIQUE(item_name))";
+	$sql_query = "CREATE TABLE IF NOT EXISTS $table (item_id INT AUTO_INCREMENT, item_name VARCHAR(255) NOT NULL, category VARCHAR(255) NOT NULL, quantity INT NOT NULL, description VARCHAR(255), unit_price DECIMAL(6, 2) NOT NULL, image VARCHAR(255), PRIMARY KEY(item_id), UNIQUE(item_name))";
 	$db_manager->createTable($table, $sql_query);
 	
 	// Add items to the store.
+	$image = "http://your local address/phpmyadmin/any directory/c5f0fa5ac14327b8330fde1c621ffa8a.jpg"; // Hard coded
 	for ($i = 0; $i <= 30; $i++) {
 		$item_name = "item" . $i;
 		$unit_price = rand(100, 2000) / 100;
-		$sql_query = "INSERT INTO $table (item_name, category, quantity, description, unit_price) VALUES ('$item_name', 'consumable', '100', 'None', '$unit_price')";
+		$sql_query = "INSERT INTO $table (item_name, category, quantity, description, unit_price, image) VALUES ('$item_name', 'consumable', '100', 'None', '$unit_price', '$image')";
 		$db_manager->insertIntoTable($table, $sql_query);
 	}
 	

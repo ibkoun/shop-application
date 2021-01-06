@@ -10,7 +10,7 @@ import java.util.Map;
  * Contains the information about an item.
  */
 public class ItemModel {
-    private String id, name, category, description, quantity, unitPrice;
+    private String id, name, category, description, quantity, unitPrice, imgSrc;
     private final Map<String, String> params = new HashMap<>();
 
     public ItemModel(String id, String name, String category, String description, String quantity, String unitPrice) {
@@ -26,8 +26,6 @@ public class ItemModel {
         params.put("description", description);
         params.put("quantity", quantity);
         params.put("unit_price", unitPrice);
-
-
     }
 
     public Map<String, String> getParams() {
@@ -43,6 +41,7 @@ public class ItemModel {
             jsonObject.put("description", description);
             jsonObject.put("quantity", quantity);
             jsonObject.put("unit_price", unitPrice);
+            jsonObject.put("image", imgSrc);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -80,4 +79,8 @@ public class ItemModel {
     public String getPrice() { return unitPrice; }
 
     public void setPrice(String unitPrice) {this.unitPrice = unitPrice; }
+
+    public void setImgSrc(String src) { imgSrc = src; }
+
+    public String getImgSrc() { return imgSrc; }
 }

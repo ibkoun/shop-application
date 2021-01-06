@@ -4,11 +4,14 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shop_application.async.ImageLoader;
+import com.example.shop_application.async.TaskRunner;
 import com.example.shop_application.item.ItemModel;
 import com.example.shop_application.R;
 
@@ -23,16 +26,19 @@ import java.util.Locale;
  */
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private final List<ItemModel> items  = new ArrayList<>();
+    private final TaskRunner taskRunner = new TaskRunner();
     private View previousSelection;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView item, unitPrice, subtotal;
+        ImageView image;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             item = itemView.findViewById(R.id.cart_item);
-            unitPrice = itemView.findViewById(R.id.cart_item_subtotal);
-            subtotal = itemView.findViewById(R.id.cart_item_unit_price);
+            unitPrice = itemView.findViewById(R.id.cart_item_unit_price);
+            subtotal = itemView.findViewById(R.id.cart_item_subtotal);
+            image = itemView.findViewById(R.id.cart_item_image);
         }
     }
 
@@ -61,6 +67,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.item.setText(String.format(resources.getString(R.string.item_quantity), name, quantity));
         holder.unitPrice.setText(String.format(resources.getString(R.string.unit_price), unitPrice));
         holder.subtotal.setText(String.format(resources.getString(R.string.cart_subtotal), totalPrice));
+        taskRunner.executeAsync(new ImageLoader(item.getImgSrc()), (bitmap) -> holder.image.setImageBitmap(bitmap));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
